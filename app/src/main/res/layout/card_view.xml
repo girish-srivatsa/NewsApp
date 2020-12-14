@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+<<<<<<< HEAD
     android:dividerPadding="50dp">
+=======
+    android:dividerPadding="50dp"
+    app:barrierMargin="10dp">
+>>>>>>> c50bfa58e638f0db185e09339306c76860b38bdf
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@color/white"
         android:layout_width="match_parent"
+<<<<<<< HEAD
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp">
@@ -17,11 +27,23 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp">
+=======
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:id="@+id/fl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+>>>>>>> c50bfa58e638f0db185e09339306c76860b38bdf
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+<<<<<<< HEAD
+=======
+                android:textColor="@color/black"
+>>>>>>> c50bfa58e638f0db185e09339306c76860b38bdf
                 android:text="TextView" />
         </FrameLayout>
     </androidx.cardview.widget.CardView>
