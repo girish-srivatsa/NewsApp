@@ -1,11 +1,17 @@
 package com.example.newsapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -13,6 +19,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.BreakIterator;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import com.squareup.okhttp.MediaType;
@@ -42,6 +50,48 @@ public class MainActivity extends AppCompatActivity {
             Log.e("error",String.valueOf(e.getStackTrace()));
         }
     }
+}
+class RVAdapter extends RecyclerView.Adapter<RVAdapter.NewsViewHolder>{
+    List<News> news;
+
+    RVAdapter(List<News> persons){
+        this.news = persons;
+    }
+
+    @NonNull
+    @Override
+    public NewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false);
+        NewsViewHolder pvh = new NewsViewHolder(v);
+        return pvh;
+    }
+
+    @Override
+    public void onBindViewHolder(NewsViewHolder newsViewHolder, int i) {
+        NewsViewHolder.newsTitle.setText(news.get(i).name);
+    }
+
+    @Override
+    public int getItemCount() {
+        return news.size();
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+    }
+
+    public static class NewsViewHolder extends RecyclerView.ViewHolder {
+        CardView cv;
+        TextView newsTitle;
+
+        NewsViewHolder(View itemView) {
+            super(itemView);
+            cv = (CardView)itemView.findViewById(R.id.cv);
+            newsTitle = (TextView)itemView.findViewById(R.id.tv);
+        }
+    }
+
 }
 class Z extends AsyncTask<Void, Void, String>{
     @Override
