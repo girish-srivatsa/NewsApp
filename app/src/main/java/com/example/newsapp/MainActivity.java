@@ -75,7 +75,8 @@ class RVAdapter extends RecyclerView.Adapter<RVAdapter.NewsViewHolder> {
 
     @Override
     public void onBindViewHolder(NewsViewHolder newsViewHolder, int i) {
-        NewsViewHolder.newsTitle.setText(news.get(i).name);
+        String text = '"' + news.get(i).name + '"';
+        NewsViewHolder.newsTitle.setText(text);
     }
 
     @Override

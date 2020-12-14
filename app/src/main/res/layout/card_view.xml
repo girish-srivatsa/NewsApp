@@ -3,47 +3,41 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-<<<<<<< HEAD
-    android:dividerPadding="50dp">
-=======
-    android:dividerPadding="50dp"
+    android:dividerPadding="100dp"
+    android:background="@android:color/white"
     app:barrierMargin="10dp">
->>>>>>> c50bfa58e638f0db185e09339306c76860b38bdf
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="5dp"
-        android:background="@color/white"
+        android:background="@color/teal_200"
+        app:cardBackgroundColor="@android:color/holo_orange_light"
         android:layout_width="match_parent"
-<<<<<<< HEAD
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp">
+        app:cardUseCompatPadding="true"
+        app:cardElevation="4dp">
 
         <FrameLayout
             android:id="@+id/fl"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp">
-=======
-        android:layout_height="wrap_content">
-
-        <FrameLayout
-            android:id="@+id/fl"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:paddingStart="10dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
->>>>>>> c50bfa58e638f0db185e09339306c76860b38bdf
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-<<<<<<< HEAD
-=======
-                android:textColor="@color/black"
->>>>>>> c50bfa58e638f0db185e09339306c76860b38bdf
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:textColor="@android:color/black"
+                android:textSize="15sp"
                 android:text="TextView" />
         </FrameLayout>
     </androidx.cardview.widget.CardView>
