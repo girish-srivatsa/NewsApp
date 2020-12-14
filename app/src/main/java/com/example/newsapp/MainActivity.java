@@ -28,9 +28,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Whole w=new Whole();
-        try{
-            String j=new Z().execute().get();
-            Log.i("in",j);
+        try {
+            String j = new Z().execute().get();
+            Log.e("got",j);
+            w=new Gson().fromJson(j,Whole.class);
+            j=new Gson().toJson(w);
+            Log.e("obj",j);
         }
         catch(InterruptedException e){
             Log.e("error",String.valueOf(e.getStackTrace()));
@@ -40,9 +43,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
-class Z extends AsyncTask<Whole, Void, String>{
+class Z extends AsyncTask<Void, Void, String>{
     @Override
-    protected String doInBackground(Whole... params) {
+    protected String doInBackground(Void... voids) {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url("https://bing-news-search1.p.rapidapi.com/news?safeSearch=Off&textFormat=Raw")
@@ -53,16 +56,22 @@ class Z extends AsyncTask<Whole, Void, String>{
                 .build();
         try{
             Response response = client.newCall(request).execute();
-            Log.i("data",response.body().string());
-            return response.body().toString();
+            //Log.i("data",response.body().string());
+            Log.i("data","data");
+            return response.body().string();
         }
         catch(IOException e){
             Log.e("error", String.valueOf(e.getStackTrace()));
             return String.valueOf(e.getStackTrace());
         }
     }
+
+
+    @Override
     protected void onPostExecute(String result) {
-        Log.i("info",result);
+
+        Log.e("hi","hi");
+        Log.e("hi",result);
     }
 };
 class Whole{
