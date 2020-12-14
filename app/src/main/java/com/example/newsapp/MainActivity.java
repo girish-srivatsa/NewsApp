@@ -3,6 +3,7 @@ package com.example.newsapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.AsyncTask;
@@ -20,6 +21,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.text.BreakIterator;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -29,39 +31,44 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 import com.google.gson.*;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Whole w=new Whole();
+        Whole w = new Whole();
         try {
             String j = new Z().execute().get();
-            Log.e("got",j);
-            w=new Gson().fromJson(j,Whole.class);
-            j=new Gson().toJson(w);
-            Log.e("obj",j);
-        }
-        catch(InterruptedException e){
-            Log.e("error",String.valueOf(e.getStackTrace()));
-        }
-        catch(ExecutionException e){
-            Log.e("error",String.valueOf(e.getStackTrace()));
+            Log.e("got", j);
+            w = new Gson().fromJson(j, Whole.class);
+            RecyclerView recyclerView = (RecyclerView)findViewById(R.id.rv);
+            RVAdapter recyclerViewAdapter = new RVAdapter(Arrays.asList(w.value));
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+            recyclerView.setLayoutManager(layoutManager);
+            recyclerView.setAdapter(recyclerViewAdapter);
+            j = new Gson().toJson(w);
+            Log.e("obj", j);
+        } catch (InterruptedException e) {
+            Log.e("error", String.valueOf(e.getStackTrace()));
+        } catch (ExecutionException e) {
+            Log.e("error", String.valueOf(e.getStackTrace()));
         }
     }
 }
-class RVAdapter extends RecyclerView.Adapter<RVAdapter.NewsViewHolder>{
+
+class RVAdapter extends RecyclerView.Adapter<RVAdapter.NewsViewHolder> {
     List<News> news;
 
-    RVAdapter(List<News> persons){
+    RVAdapter(List<News> persons) {
         this.news = persons;
     }
 
     @NonNull
     @Override
     public NewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_view, parent, false);
         NewsViewHolder pvh = new NewsViewHolder(v);
         return pvh;
     }
@@ -83,17 +90,18 @@ class RVAdapter extends RecyclerView.Adapter<RVAdapter.NewsViewHolder>{
 
     public static class NewsViewHolder extends RecyclerView.ViewHolder {
         CardView cv;
-        TextView newsTitle;
+        static TextView newsTitle;
 
         NewsViewHolder(View itemView) {
             super(itemView);
-            cv = (CardView)itemView.findViewById(R.id.cv);
-            newsTitle = (TextView)itemView.findViewById(R.id.tv);
+            cv = (CardView) itemView.findViewById(R.id.cv);
+            newsTitle = (TextView) itemView.findViewById(R.id.textView);
         }
     }
 
 }
-class Z extends AsyncTask<Void, Void, String>{
+
+class Z extends AsyncTask<Void, Void, String> {
     @Override
     protected String doInBackground(Void... voids) {
         OkHttpClient client = new OkHttpClient();
@@ -104,13 +112,12 @@ class Z extends AsyncTask<Void, Void, String>{
                 .addHeader("x-rapidapi-key", "5be6f2b8e3msh38c3cc89dc461b5p1c7110jsnd243442900ea")
                 .addHeader("x-rapidapi-host", "bing-news-search1.p.rapidapi.com")
                 .build();
-        try{
+        try {
             Response response = client.newCall(request).execute();
             //Log.i("data",response.body().string());
-            Log.i("data","data");
+            Log.i("data", "data");
             return response.body().string();
-        }
-        catch(IOException e){
+        } catch (IOException e) {
             Log.e("error", String.valueOf(e.getStackTrace()));
             return String.valueOf(e.getStackTrace());
         }
@@ -120,16 +127,18 @@ class Z extends AsyncTask<Void, Void, String>{
     @Override
     protected void onPostExecute(String result) {
 
-        Log.e("hi","hi");
-        Log.e("hi",result);
+        Log.e("hi", "hi");
+        Log.e("hi", result);
     }
 };
-class Whole{
+
+class Whole {
     String _type;
     String webSearchUrl;
     News[] value;
 }
-class News{
+
+class News {
     String _type;
     String name;
     String url;
@@ -138,18 +147,21 @@ class News{
     Org[] provider;
     String datePublished;
 }
-class Img{
+
+class Img {
     String _type;
     Img2 thumbnail;
     Boolean isLicensed;
 }
-class Img2{
+
+class Img2 {
     String _type;
     String contentUrl;
     Integer width;
     Integer height;
 }
-class Org{
+
+class Org {
     String _type;
     String name;
     Img image;
